@@ -1,0 +1,31 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.DayOfWeek;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+public class DayOfWeekCalculator {
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: java DayOfWeekCalculator <date>");
+            System.out.println("Date format: yyyy-MM-dd");
+            return;
+        }
+
+        String dateString = args[0];
+        String datePattern = "\\d{4}-\\d{2}-\\d{2}";
+
+        Pattern pattern = Pattern.compile(datePattern);
+        Matcher matcher = pattern.matcher(dateString);
+
+        if (!matcher.matches()) {
+            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+            return;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(dateString, formatter);
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        System.out.println("The day of the week for " + dateString + " is " + dayOfWeek);
+    }
+}
